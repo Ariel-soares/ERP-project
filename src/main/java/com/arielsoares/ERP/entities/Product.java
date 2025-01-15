@@ -1,6 +1,7 @@
 package com.arielsoares.ERP.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
@@ -11,9 +12,18 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 50, message = "O nome do produto deve ter entre 3 e 50 caracteres")
     private String name;
+    @NotNull
+    @NotBlank
     private String description;
+    @NotNull
     private Double price;
+
+    private Boolean isActive = true;
 
     public Product() {}
 
@@ -55,6 +65,15 @@ public class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
 
     @Override
     public boolean equals(Object o) {

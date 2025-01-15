@@ -2,6 +2,7 @@ package com.arielsoares.ERP.controllers;
 
 import com.arielsoares.ERP.entities.Product;
 import com.arielsoares.ERP.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> insert(@RequestBody Product product){
+    public ResponseEntity<Product> insert(@RequestBody @Valid Product product){
         Product obj = service.insert(product);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);

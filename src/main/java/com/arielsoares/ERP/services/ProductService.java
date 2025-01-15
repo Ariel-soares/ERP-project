@@ -17,6 +17,7 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
+
     public List<Product> findAll(){
         return repository.findAll();
     }
@@ -46,5 +47,6 @@ public class ProductService {
         product.setName(obj.getName());
         product.setDescription(obj.getDescription());
         product.setPrice(obj.getPrice());
+        product.setActive(obj.getActive());
     }
 }

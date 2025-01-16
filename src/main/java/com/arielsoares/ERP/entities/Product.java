@@ -23,6 +23,7 @@ public class Product {
     @NotNull
     private Double price;
 
+
     private Boolean isActive = true;
 
     public Product() {}

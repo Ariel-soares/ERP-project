@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,8 @@ public class ProductService {
 
     @Transactional
     public Product insert(Product product){
+        product.setCreatedAt(LocalDateTime.now());
+        product.setCreatedBy("Ariel");
         return repository.save(product);
     }
 
@@ -47,6 +50,7 @@ public class ProductService {
         product.setName(obj.getName());
         product.setDescription(obj.getDescription());
         product.setPrice(obj.getPrice());
-        product.setActive(obj.getActive());
+        product.setUpdatedAt(LocalDateTime.now());
+        product.setUpdatedBy("Ariel");
     }
 }

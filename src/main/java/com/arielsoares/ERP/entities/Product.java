@@ -3,15 +3,9 @@ package com.arielsoares.ERP.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-import java.util.Objects;
-
 @Entity
 @Table(name="tb_product")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Product extends BaseEntityAudit{
 
     @NotNull
     @NotBlank
@@ -21,26 +15,16 @@ public class Product {
     @NotBlank
     private String description;
     @NotNull
+    @Min(value = 0, message = "O preço deve ser maior ou igual a zero.")
     private Double price;
 
-
-    private Boolean isActive = true;
-
-    public Product() {}
-
-    public Product(Long id, String name, String description, Double price) {
-        this.id = id;
+    public Product(String name, String description, Double price) {
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Product() {
     }
 
     public String getName() {
@@ -67,25 +51,4 @@ public class Product {
         this.price = price;
     }
 
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Objects.equals(id, product.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
 }

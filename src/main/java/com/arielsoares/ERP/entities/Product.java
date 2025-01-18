@@ -17,15 +17,16 @@ public class Product extends BaseEntityAudit{
     @NotNull
     @Min(value = 0, message = "O preço deve ser maior ou igual a zero.")
     private Double price;
+    private String imageUrl;
 
-    public Product(String name, String description, Double price) {
+    public Product(String name, String description, Double price, String imageUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
-    public Product() {
-    }
+    public Product() {}
 
     public String getName() {
         return name;
@@ -51,4 +52,10 @@ public class Product extends BaseEntityAudit{
         this.price = price;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

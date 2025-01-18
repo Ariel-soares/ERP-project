@@ -1,5 +1,6 @@
 package com.arielsoares.ERP.controllers;
 
+import com.arielsoares.ERP.DTO.ProductDTO;
 import com.arielsoares.ERP.entities.Product;
 import com.arielsoares.ERP.services.ProductService;
 import jakarta.validation.Valid;
@@ -19,9 +20,9 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll(){
-        List<Product> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<List<ProductDTO>> findAll(){
+        List<ProductDTO> products = service.findAll();
+        return ResponseEntity.ok().body(products);
     }
 
     @GetMapping(value = "/{id}")

@@ -1,5 +1,6 @@
 package com.arielsoares.ERP.services;
 
+import com.arielsoares.ERP.DTO.ProductDTO;
 import com.arielsoares.ERP.entities.Product;
 import com.arielsoares.ERP.exceptions.ResourceNotFoundException;
 import com.arielsoares.ERP.repositories.ProductRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +21,16 @@ public class ProductService {
     private ProductRepository repository;
 
 
-    public List<Product> findAll(){
-        return repository.findAll();
+    public List<ProductDTO> findAll(){
+
+        List<Product> products = repository.findAll();
+        List<ProductDTO> productsDTO = new ArrayList<>();
+
+        for (Product product : products) {
+            productsDTO.add(productToProductDTO(product));
+        }
+
+        return productsDTO;
     }
 
     public Product findById(Long id){
@@ -52,5 +62,15 @@ public class ProductService {
         product.setPrice(obj.getPrice());
         product.setUpdatedAt(LocalDateTime.now());
         product.setUpdatedBy("Ariel");
+    }
+
+    private ProductDTO productToProductDTO(Product product){
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getDescription(),
+                product.getImageUrl()
+        );
     }
 }

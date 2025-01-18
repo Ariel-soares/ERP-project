@@ -42,8 +42,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorDetails> handleRuntimeException(RuntimeException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST, "Internal Server Error", ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
-    //@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders http, HttpStatusCode status, WebRequest request) {
 
         Map<String, String> validationErrors = new HashMap<>();

@@ -63,6 +63,17 @@ public class ProductService {
         product.setUpdatedBy("Ariel");
     }
 
+    public ProductDTO inactivateProduct(Long id){
+        Product product = findById(id);
+
+        if (product.getActive() == false) throw new RuntimeException("Product is already inactive");
+
+        product.setActive(false);
+        product = repository.save(product);
+        ProductDTO obj = productToProductDTO(product);
+        return obj;
+    }
+
     private ProductDTO productToProductDTO(Product product){
         return new ProductDTO(
                 product.getId(),

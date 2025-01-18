@@ -12,16 +12,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(
 info = @Info(
 		title = "ERP application",
-		description = "ERP application for business managemente",
+		description = "ERP application for business management",
 		version = "v1",
 		contact = @Contact(
-				name = "Madan Reddy",
-				email = "tutor@eazybytes.com",
-				url = "https://www.eazybytes.com"
+				name = "Ariel Soares Franco",
+				email = "ariel.sfranco@gmail.com"
 		),
 		license = @License(
-				name = "Apache 2.0",
-				url = "https://www.eazybytes.com"
+				name = "Apache 2.0"
 		)
 ),
 externalDocs = @ExternalDocumentation(

@@ -3,6 +3,7 @@ package com.arielsoares.ERP.controllers;
 import com.arielsoares.ERP.DTO.ProductDTO;
 import com.arielsoares.ERP.entities.Product;
 import com.arielsoares.ERP.services.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@Tag(
+        name = "CRUD REST APIs for products",
+        description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH AND DELETE account details"
+)
 @RestController
 @RequestMapping(value="/products")
 public class ProductController {
@@ -42,6 +47,11 @@ public class ProductController {
     public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable Long id){
         product = service.update(id,product);
         return ResponseEntity.ok().body(product);
+    }
+
+    @PutMapping(value = "/inactivateProduct/{id}")
+    public ResponseEntity<ProductDTO> inactivateProduct(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.inactivateProduct(id));
     }
 
 }

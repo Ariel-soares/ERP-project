@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -26,11 +27,9 @@ public class ProductService {
         List<Product> products = repository.findAll();
         List<ProductDTO> productsDTO = new ArrayList<>();
 
-        for (Product product : products) {
-            productsDTO.add(productToProductDTO(product));
-        }
-
-        return productsDTO;
+        return products.parallelStream()
+                .map(this::productToProductDTO)
+                .collect(Collectors.toList());
     }
 
     public Product findById(Long id){
@@ -70,7 +69,8 @@ public class ProductService {
                 product.getName(),
                 product.getPrice(),
                 product.getDescription(),
-                product.getImageUrl()
+                product.getImageUrl(),
+                product.getActive()
         );
     }
 }

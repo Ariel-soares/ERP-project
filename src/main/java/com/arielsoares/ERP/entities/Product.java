@@ -18,6 +18,7 @@ public class Product extends BaseEntityAudit{
     @Min(value = 0, message = "O preço deve ser maior ou igual a zero.")
     private Double price;
     private String imageUrl;
+    private Boolean isActive = true;
 
     public Product(String name, String description, Double price, String imageUrl) {
         this.name = name;
@@ -57,5 +58,13 @@ public class Product extends BaseEntityAudit{
     }
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

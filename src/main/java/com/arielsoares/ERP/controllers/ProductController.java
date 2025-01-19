@@ -1,11 +1,10 @@
 package com.arielsoares.ERP.controllers;
 
-import com.arielsoares.ERP.DTO.ProductDTO;
+import com.arielsoares.ERP.entities.DTO.ProductDTO;
 import com.arielsoares.ERP.entities.Product;
 import com.arielsoares.ERP.services.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,7 @@ public class ProductController {
     )
     @GetMapping
     public ResponseEntity<List<ProductDTO>> findAll(){
-        List<ProductDTO> products = service.findAll();
-        return ResponseEntity.ok().body(products);
+        return ResponseEntity.ok().body(service.findAll());
     }
 
     @Operation(summary = "Find product by ID",
@@ -48,15 +46,13 @@ public class ProductController {
             description = "HTTP Status OK"
     )
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
-        Product obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.findById(id));
     }
 
     @GetMapping(value = "/name/{name}")
     public ResponseEntity<List<ProductDTO>> findByName(@PathVariable String name){
-        List<ProductDTO> products = service.findByName(name);
-        return ResponseEntity.ok().body(products);
+        return ResponseEntity.ok().body(service.findByName(name));
     }
 
     @Operation(summary = "Create product REST API",
@@ -81,9 +77,8 @@ public class ProductController {
             description = "HTTP Status OK"
     )
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable Long id){
-        product = service.update(id,product);
-        return ResponseEntity.ok().body(product);
+    public ResponseEntity<ProductDTO> update(@RequestBody Product product, @PathVariable Long id){
+        return ResponseEntity.ok().body(service.update(id,product));
     }
 
     @Operation(summary = "Inactivate product by ID",

@@ -1,6 +1,6 @@
 package com.arielsoares.ERP.services;
 
-import com.arielsoares.ERP.DTO.ProductDTO;
+import com.arielsoares.ERP.entities.DTO.ProductDTO;
 import com.arielsoares.ERP.entities.Product;
 import com.arielsoares.ERP.exceptions.ResourceNotFoundException;
 import com.arielsoares.ERP.repositories.ProductRepository;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,9 +29,9 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public Product findById(Long id){
-        Optional<Product> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    public ProductDTO findById(Long id){
+        Product obj = repository.findById(id).orElseThrow();
+        return productToProductDTO(obj);
     }
 
     public List<ProductDTO> findByName(String name){
@@ -54,11 +53,14 @@ public class ProductService {
     }
 
     @Transactional
-    public Product update(Long id, Product obj){
+    public ProductDTO update(Long id, Product obj){
         try {
-            Product product = findById(id);
+            Product product = repository.findById(id).orElseThrow();
             updateData(product, obj);
-            return repository.save(product);
+
+            product = repository.save(product);
+
+            return productToProductDTO(product);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
         }
@@ -73,7 +75,7 @@ public class ProductService {
     }
 
     public ProductDTO inactivateProduct(Long id){
-        Product product = findById(id);
+        Product product = repository.findById(id).orElseThrow();
 
         if (product.getActive() == false) throw new RuntimeException("Product is already inactive");
 

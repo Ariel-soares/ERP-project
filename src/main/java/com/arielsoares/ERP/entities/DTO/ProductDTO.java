@@ -1,4 +1,4 @@
-package com.arielsoares.ERP.DTO;
+package com.arielsoares.ERP.entities.DTO;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

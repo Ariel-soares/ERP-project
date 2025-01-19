@@ -53,6 +53,12 @@ public class ProductController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @GetMapping(value = "/name/{name}")
+    public ResponseEntity<List<ProductDTO>> findByName(@PathVariable String name){
+        List<ProductDTO> products = service.findByName(name);
+        return ResponseEntity.ok().body(products);
+    }
+
     @Operation(summary = "Create product REST API",
             description = "REST API to create new product inside ERP"
     )
@@ -61,9 +67,9 @@ public class ProductController {
             description = "HTTP Status CREATED"
     )
     @PostMapping
-    public ResponseEntity<Product> insert(@RequestBody @Valid Product product){
-        Product obj = service.insert(product);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+    public ResponseEntity<ProductDTO> insert(@RequestBody @Valid ProductDTO product){
+        ProductDTO obj = service.insert(product);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.id()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
 

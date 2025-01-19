@@ -1,10 +1,12 @@
 package com.arielsoares.ERP.entities;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name="tb_product")
+@Hidden
 public class Product extends BaseEntityAudit{
 
     @NotNull

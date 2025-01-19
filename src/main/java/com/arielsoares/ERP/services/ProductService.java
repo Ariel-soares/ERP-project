@@ -25,8 +25,6 @@ public class ProductService {
     public List<ProductDTO> findAll(){
 
         List<Product> products = repository.findAll();
-        List<ProductDTO> productsDTO = new ArrayList<>();
-
         return products.parallelStream()
                 .map(this::productToProductDTO)
                 .collect(Collectors.toList());
@@ -37,11 +35,22 @@ public class ProductService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public List<ProductDTO> findByName(String name){
+
+        List<Product> products = repository.findByName(name);
+        return products.parallelStream()
+                .map(this::productToProductDTO)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
-    public Product insert(Product product){
+    public ProductDTO insert(ProductDTO productDTO){
+
+        Product product = productFromDTO(productDTO);
         product.setCreatedAt(LocalDateTime.now());
         product.setCreatedBy("Ariel");
-        return repository.save(product);
+
+        return productToProductDTO(repository.save(product));
     }
 
     @Transactional
@@ -83,5 +92,14 @@ public class ProductService {
                 product.getImageUrl(),
                 product.getActive()
         );
+    }
+
+    private Product productFromDTO(ProductDTO productDTO){
+        Product product = new Product();
+        product.setName(productDTO.name());
+        product.setDescription(productDTO.description());
+        product.setImageUrl(productDTO.imageUrl());
+        product.setPrice(productDTO.price());
+        return product;
     }
 }

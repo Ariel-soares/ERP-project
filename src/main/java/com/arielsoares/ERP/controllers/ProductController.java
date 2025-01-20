@@ -50,8 +50,8 @@ public class ProductController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping(value = "/name/{name}")
-    public ResponseEntity<List<ProductDTO>> findByName(@PathVariable String name){
+    @GetMapping(value = "/name")
+    public ResponseEntity<List<ProductDTO>> findByName(@RequestParam String name){
         return ResponseEntity.ok().body(service.findByName(name));
     }
 

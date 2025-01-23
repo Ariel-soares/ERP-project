@@ -27,4 +27,9 @@ public class ProductAuditController {
     public List<Product> findAll() {
         return productService.findAll();
     }
+
+    @GetMapping
+    public List<Product> findByUserId(Long userId) {
+        return null;
+    }
 }

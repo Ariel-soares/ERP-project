@@ -1,9 +1,12 @@
 package com.arielsoares.ERP.entities;
 
+import jakarta.persistence.Entity;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Objects;
 
+@Entity
 public class ProductAuditLog extends BaseEntity{
 
     private Long productId;
